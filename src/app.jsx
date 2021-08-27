@@ -1,7 +1,7 @@
-import "./app.css";
 import React, { useEffect, useState } from "react";
+import styles from "./app.module.css";
 import VideoList from "./components/video_list/video_list";
-import Navbar from "./components/navbar";
+import SearchHeader from "./components/search_header/search_header";
 
 const App = () => {
   const API_KEY = "AIzaSyDtHaEDsyl-2LEN83CsPcViiAyk_vjVnmM";
@@ -46,10 +46,10 @@ const App = () => {
   };
 
   return (
-    <section className="video_constructor">
-      <Navbar onSearch={handleSearch} />
+    <div className={styles.app}>
+      <SearchHeader />
       <VideoList videos={videos} />
-    </section>
+    </div>
   );
 };
 
