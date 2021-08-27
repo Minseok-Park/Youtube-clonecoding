@@ -8,7 +8,24 @@ const App = () => {
   let query = `bts`;
 
   const [videos, setVideos] = useState([]);
-  const [search, setSearch] = useState([]);
+
+  const search = (query) => {
+    const searchOptions = {
+      method: "GET",
+      redirect: "follow",
+    };
+
+    fetch(
+      `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=26&q=${query}&type=video&key=${API_KEY}`,
+      searchOptions
+    )
+      .then((response) => response.json())
+      .then((result) =>
+        result.items.map((item) => ({ ...item, id: item.id.videoId }))
+      )
+      .then((items) => setVideos(items))
+      .catch((error) => console.log("error", error));
+  };
 
   useEffect(() => {
     const requestOptions = {
@@ -25,21 +42,6 @@ const App = () => {
       .catch((error) => console.log("error", error));
   }, [videos]);
 
-  useEffect(() => {
-    const searchOptions = {
-      method: "GET",
-      redirect: "follow",
-    };
-
-    fetch(
-      `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=26&q=${query}&key=${API_KEY}`,
-      searchOptions
-    )
-      .then((response) => response.json())
-      .then((data) => setSearch(data))
-      .catch((error) => console.log("error", error));
-  }, [search]);
-
   const handleSearch = (text) => {
     query = text;
     return query;
@@ -47,7 +49,7 @@ const App = () => {
 
   return (
     <div className={styles.app}>
-      <SearchHeader />
+      <SearchHeader onSearch={search} />
       <VideoList videos={videos} />
     </div>
   );
