@@ -24,3 +24,15 @@
   height: 100%;
   padding: 0.5em 0.2em;
 }
+
+@media screen and (max-width: 48rem) {
+  .header {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+  }
+  .buttonImg {
+    width: 2rem;
+  }
+}
