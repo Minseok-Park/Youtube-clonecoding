@@ -4,7 +4,7 @@ class Youtube {
   }
 
   async mostPopular() {
-    const response = await this.yotube.get("videos", {
+    const response = await this.youtube.get("videos", {
       params: {
         part: "snippet",
         chart: "mostPopular",
